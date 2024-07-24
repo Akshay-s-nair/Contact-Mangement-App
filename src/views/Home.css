@@ -1,0 +1,247 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500&display=swap");
+
+.home {
+  font-family: Arial, sans-serif;
+  color: #333;
+  animation: fadesIn 0.5s ease-in-out;
+}
+
+.hero {
+  text-align: center;
+  position: relative;
+  background-image: url("/public/background.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 750px;
+  color: white;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.hero h1, .hero .btn-try-now, .navs, .logout, .para {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  position: absolute;
+  bottom: 140px;
+  left: 30px;
+}
+.para{
+  width: 500px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px;
+  text-align: left;
+  color: #b2b2b2;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.navs {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+.stickyNav{
+  padding: 20px;
+  margin-right: 20px;
+}
+
+.links {
+  text-decoration: none;
+  color: white;
+}
+
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  
+  display: flex;
+  justify-content:space-between;
+  gap: 20px;
+  z-index: 10;
+  transition: opacity 0.3s ease-in-out;
+}
+.sec2{
+  display: flex;
+  align-items: center;
+}
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.visible {
+  opacity: 1;
+}
+.btn-try-now {
+  background-color: #eb8d48;
+  transition: all .2s ease-in-out;
+  font-size: 20px;
+}
+.btn-try-now:hover {
+  background-color: #da6a1a;
+  color: #ffffff;
+  transform: scale(1.01);
+  box-shadow: 0 4px 6px rgba(0.1, 0,1, 0, 0.5);
+}
+
+.feature {
+  padding: 4rem 2rem;
+  background: #e9ecef;
+  border-bottom: 1px solid #ddd;
+}
+
+.feature h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.feature p {
+  font-size: 1.2rem;
+}
+
+.contact-section {
+  display: flex;
+  justify-content: space-around;
+}
+
+.contact-section div {
+  flex: 1;
+  padding: 1rem;
+  text-align: center;
+}
+
+.contact-section .create-edit, .contact-section .list-contacts, .contact-section .delete-contact {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+}
+.delete-contact,.list-contacts,.create-edit{
+  font-size: 20px;
+  transition: all .2s ease-in-out;
+}
+.delete-contact:hover,.list-contacts:hover,.create-edit:hover{
+  transform: scale(1.03);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #da6a1a;
+}
+.call-to-action {
+  background: #f4f4f4;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.call-to-action h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.logoutbut,.loginbut{
+  margin-right: 20px;
+}
+.logoutbut, .links {
+  background-color: #33333300;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 10px;
+  transition: all .2s ease-in-out;
+}
+ .links:hover {
+  color: #da6a1a;
+}
+.logoutbut:hover{
+  color: red;
+  background-color: #33333300;
+
+}
+.welcometext{
+  font-size: 40px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 250px; /* Adjust the size as needed */
+  height: auto;
+  z-index: 2; /* Ensure it's above the overlay */
+}
+.sticky-logo{
+  width: 130px;
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero{
+    height: 680px;
+  }
+  .contact-section {
+    flex-direction: column;
+  }
+
+  .navs {
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  .stickyNav{
+    flex-direction: row;
+    align-items: center;
+  }
+  .logoutbut, a.links{
+    font-size: 15px;
+  }
+  h1{
+    padding: 5px;
+  }
+  .welcometext{
+    width: 50%;
+    height: 180px;
+    text-align: left;
+    font-size: 30px;
+  }
+  .para{
+    width: 250px;
+    bottom: 10px;
+
+  }
+  .logoutbut{
+    margin-right: 0px;
+  }
+  .logoutbut-nav{
+    margin-right: 20px;
+  }
+  .logo{
+    width: 150px;
+  }
+}
