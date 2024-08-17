@@ -1,0 +1,47 @@
+[33mcommit 4b5dad5e3cbdc44d4c2139aa374cfe863fa1b135[m[33m ([m[1;36mHEAD -> [m[1;32mworking[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/branch2[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Akshay s nair <94843189+Akshay-s-nair@users.noreply.github.com>
+Date:   Thu Jul 25 00:01:15 2024 +0530
+
+    Update ContactForm.vue
+
+[33mcommit cdde778a0589801dc3e3f213ad04dad13cf4c5ba[m
+Author: Akshay s nair <94843189+Akshay-s-nair@users.noreply.github.com>
+Date:   Wed Jul 24 23:57:16 2024 +0530
+
+    Add files via upload
+
+[33mcommit bc462abc687b3cebbf38f088352a2acc70e40bd1[m
+Author: Akshay s nair <94843189+Akshay-s-nair@users.noreply.github.com>
+Date:   Wed Jul 24 23:45:24 2024 +0530
+
+    Delete public directory
+
+[33mcommit 4cbea0a3e04ae824bb9f5e4a6fa9515564d82691[m
+Author: Akshay s nair <94843189+Akshay-s-nair@users.noreply.github.com>
+Date:   Wed Jul 24 23:44:59 2024 +0530
+
+    Delete app.py
+
+[33mcommit 19c8e2fb992a36cf0f06c5be5bc45387d105069e[m
+Author: Akshay s nair <94843189+Akshay-s-nair@users.noreply.github.com>
+Date:   Wed Jul 24 23:44:34 2024 +0530
+
+    Delete src directory
+
+[33mcommit d11af8cab214a7c8c9e126cc65ddc109792da5c4[m
+Author: Akshay s nair <94843189+Akshay-s-nair@users.noreply.github.com>
+Date:   Wed Jul 24 23:44:12 2024 +0530
+
+    Delete instance directory
+
+[33mcommit ef9bc16a8a9a50cee8e88f0a167a0f9eb9e164ed[m
+Author: Akshay s nair <94843189+Akshay-s-nair@users.noreply.github.com>
+Date:   Wed Jul 24 20:02:34 2024 +0530
+
+    Add files via upload
+
+[33mcommit 0fe7b2395cb24efa6583e74e9b55251e950f52e0[m
+Author: Akshay s nair <94843189+Akshay-s-nair@users.noreply.github.com>
+Date:   Wed Jul 24 19:59:25 2024 +0530
+
+    Initial commit
