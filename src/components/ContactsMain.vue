@@ -14,10 +14,10 @@
       <div class="counts">{{ total_count }} contacts found ! </div>
     </div>
     <div class="contacts-list">
-      <div class="message messageMain">
+      <!-- <div class="message messageMain">
         <div v-if="error" class="alert alert-danger">{{ error }}</div>
         <div v-if="success" class="alert alert-success">{{ success }}</div>
-      </div>
+      </div> -->
       <div class="counts counts-mobView">{{ total_count }} contacts found ! </div>
       <div v-if="contacts.length">
         <div class="contact-grid">
@@ -44,16 +44,16 @@
             </div>
           </div>
         </div>
+        <div class="pagination-buttons">
+          <img class="nextPrevBut" v-if="currentPage === 1" src="../assets/previousdis.png" @click="handlePrevious" alt="">
+          <img class="nextPrevBut" v-else src="../assets/previous.png" @click="handlePrevious" alt="">
+          <p class="paginationText">{{ `${previousLimit} to ${currentPage >= totalPages ? total_count : currentPage * 10} contacts` }}</p>
+          <img class="nextPrevBut" v-if="currentPage >= totalPages" src="../assets/nextdis.png" @click="handleNext" alt="">
+          <img class="nextPrevBut" v-else src="../assets/next.png" @click="handleNext" alt="">
+        </div>
       </div>
       <div v-else>
         <p>No contacts available.</p>
-      </div>
-      <div class="pagination-buttons">
-        <img class="nextPrevBut" v-if="currentPage === 1" src="../assets/previousdis.png" @click="handlePrevious" alt="">
-        <img class="nextPrevBut" v-else src="../assets/previous.png" @click="handlePrevious" alt="">
-        <p class="paginationText">{{ `${previousLimit} to ${currentPage >= totalPages ? total_count : currentPage * 10} contacts` }}</p>
-        <img class="nextPrevBut" v-if="currentPage >= totalPages" src="../assets/nextdis.png" @click="handleNext" alt="">
-        <img class="nextPrevBut" v-else src="../assets/next.png" @click="handleNext" alt="">
       </div>
     </div>
   </div>
@@ -234,22 +234,12 @@ export default {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  position:sticky;
+  /* position:sticky; */
   bottom: 0%;
   color: #da5b01;
   background-color: #f4f4f9ac;
   font-weight: 600;
 }
-
-/* .btn-secondary {
-  background-color: #6c757d;
-  color: white;
-  margin: 0 10px;
-}
-
-.btn-secondary:disabled {
-  background-color: #c0c0c0;
-} */
 .counts-mobView{
   display: none;
 }
@@ -286,7 +276,9 @@ export default {
 }
 .counts-mobView{
   display:block;
+  font-size: 12px;
   margin-bottom: 10px;
+  text-align: right;
 }
 .messageMain{
   display: none;

@@ -327,14 +327,18 @@ def update_user(current_user):
     try:
         current_user.dob = datetime.strptime(data.get('dob'), '%Y-%m-%d').date() if data.get('dob') else None
     except ValueError:
-        return jsonify({'error': 'Invalid date format for dob. Use YYYY-MM-DD.'}), 400
+        current_user.dob=None
     
     current_user.gender = data.get('gender', current_user.gender)
     current_user.phone = data.get('phone', current_user.phone)
     current_user.address = data.get('address', current_user.address)
 
     db.session.commit()
-    return jsonify({'message': 'User details updated successfully'}), 200
+    try:
+        img=current_user.profile_picture
+    except:
+        img=''
+    return jsonify({'message': 'Details updated successfully', 'username': current_user.firstname+" "+current_user.lastname,'img':img}), 200
 
 
 @app.route('/forgot_password', methods=['POST'])
@@ -345,7 +349,7 @@ def forgot_password():
     user = User.query.filter_by(email=email, phone=phone).first()
     if user:
         # Implement email sending with a unique token here
-        return jsonify({'message': 'Please enter your new password below.'}), 200
+        return jsonify({'message': 'Please enter your new password.'}), 200
     else:
         return jsonify({'error': 'Invalid email or phone number.'}), 400
 
@@ -357,7 +361,7 @@ def reset_password():
     confirm_password = request.json.get('confirm_password')
 
     if new_password != confirm_password:
-        return jsonify({'error': 'Passwordss do not match.'}), 400
+        return jsonify({'error': 'Passwords do not match.'}), 400
 
     user = User.query.filter_by(email=email, phone=phone).first()
     if user:

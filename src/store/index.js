@@ -42,7 +42,7 @@ const store = createStore({
     setImg(state,img) {
       state.img=img
       localStorage.setItem('img', img);
-      console.log('mutation',state.img)
+      console.log('mutation setImg',state.img)
     },
     setToken(state, token) {
       state.token = token;
@@ -220,10 +220,10 @@ const store = createStore({
         commit('addContact', response.data);
         dispatch('fetchContacts');
         commit('setSuccess', 'Contact added successfully');
-        dispatch('clearMessagesAfterDelay');
       } catch (error) {
         // commit('setError', error.response.data.error || 'An error occurred');
       }
+      dispatch('clearMessagesAfterDelay');
     },
     async updateContact({ commit, dispatch }, contact) {
       try {
@@ -232,11 +232,10 @@ const store = createStore({
         });
         dispatch('fetchContacts');
         commit('setSuccess', 'Contact updated successfully');
-        dispatch('clearMessagesAfterDelay');
       } catch (error) {
         commit('setError', error.response.data.error || 'An error occurred');
-        dispatch('clearMessagesAfterDelay');
       }
+      dispatch('clearMessagesAfterDelay');
     },
     async deleteContact({ commit, dispatch }, contactId) {
       try {
@@ -245,11 +244,10 @@ const store = createStore({
         });
         dispatch('fetchContacts');
         commit('setSuccess', 'Contact Deleted successfully');
-        dispatch('clearMessagesAfterDelay');
       } catch (error) {
         commit('setError', error.response.data.error || 'An error occurred');
-        dispatch('clearMessagesAfterDelay');
       }
+      dispatch('clearMessagesAfterDelay');
     },
     setSearch({ commit, dispatch }, search) {
       commit('setSearch', search);
@@ -310,15 +308,10 @@ const store = createStore({
         });
 
         commit('setSuccess', 'User updated successfully');
-        commit('setUser', response.data.user);
-        commit('setImg', response.data.user.profile_picture);
+        commit('setUser', response.data.username);
+        commit('setImg',response.data.img);
         dispatch('clearMessagesAfterDelay');
       } catch (error) {
-        if (error.response.data && error.response.data.error) {
-          commit('setError', error.response.data.error);
-        } else {
-          commit('setError', 'An error occurred during the update');
-        }
         dispatch('clearMessagesAfterDelay');
       }
     },
@@ -332,44 +325,47 @@ const store = createStore({
           commit('setUser', null);
           commit('setImg', null);
           dispatch('clearMessagesAfterDelay');
-          } catch (error) {
-            if (error.response.data && error.response.data.error) {
-              commit('setError', error.response.data.error);
-              } else {
-                commit('setError', 'An error occurred during the delete');
-                }
-                dispatch('clearMessagesAfterDelay');
-                }
-                },
-                async requestPasswordReset({ commit }, { email, phone }) {
-                  try {
-                    commit('clearMessages');
-                    const response = await axios.post('http://localhost:5000/forgot_password', { email, phone });
-                    commit('setSuccess', response.data.message);
-                  } catch (error) {
-                    commit('setError', error.response.data.error || 'An error occurred');
-                  }
-                },
+      } 
+      catch (error) {
+        if (error.response.data && error.response.data.error) {
+          commit('setError', error.response.data.error);
+          } 
+        else {
+          commit('setError', 'An error occurred during the delete');
+          }
+        dispatch('clearMessagesAfterDelay');
+      }
+    },
+    async requestPasswordReset({ commit, dispatch }, { email, phone }) {
+      try {
+        commit('clearMessages');
+        const response = await axios.post('http://localhost:5000/forgot_password', { email, phone });
+        commit('setSuccess', response.data.message);
+      } catch (error) {
+        commit('setError', error.response.data.error || 'An error occurred');
+      }
+      dispatch('clearMessagesAfterDelay');
+    },
                 
-                async resetPassword({ commit }, {email,phone,  newPassword, confirmPassword }) {
-                  try {
-                    commit('clearMessages');
-                    // if (newPassword !== confirmPassword) {
-                    //   commit('setError', 'Passwords do not match');
-                    //   return;
-                    // }
-                    const response = await axios.post('http://localhost:5000/reset_password', {
-                      email:email,
-                      phone:phone,
-                      new_password: newPassword,
-                      confirm_password: confirmPassword
-                    });
-                    commit('setSuccess', response.data.message);
-                    // Redirect to login or home page if needed
-                  } catch (error) {
-                    commit('setError', error.response.data.error || 'An error occurred');
-                  }
-                }
+    async resetPassword({ commit, dispatch }, {email,phone,  newPassword, confirmPassword }) {
+      try {
+        commit('clearMessages');
+        // if (newPassword !== confirmPassword) {
+        //   commit('setError', 'Passwords do not match');
+        //   return;
+        // }
+        const response = await axios.post('http://localhost:5000/reset_password', {
+          email:email,
+          phone:phone,
+          new_password: newPassword,
+          confirm_password: confirmPassword
+        });
+        commit('setSuccess', response.data.message);
+      } catch (error) {
+        commit('setError', error.response.data.error || 'An error occurred');
+      }
+      dispatch('clearMessagesAfterDelay');
+    }
     // async changePassword({ commit, dispatch }, updatedData) {
     //   try {
     //     commit('clearMessages');

@@ -4,23 +4,23 @@
     <router-link class="home-link" to="/">Home</router-link>
   </div>
   <div class="forgot-password">
-    <h2>Forgot Password</h2>
-    <form @submit.prevent="handleRequestPasswordReset">
-      <div v-if="successMessage" class="success">{{ successMessage }}</div>
-      <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
-      <div>
-        <label for="email">Email:</label>
-        <input v-model="email" type="email" id="email" required />
-        <span v-if="errors.email">{{ errors.email }}</span>
-      </div>
-      <div>
-        <label for="phone">Phone:</label>
-        <input v-model="phone" type="text" id="phone" required />
-        <span v-if="errors.phone">{{ errors.phone }}</span>
-      </div>
-      <button type="submit">Request Password Reset</button>
-      
-    </form>
+    <div v-if="!showResetForm">
+      <h2>Forgot Password</h2>
+      <form @submit.prevent="handleRequestPasswordReset">
+        <div>
+          <label for="email">Email:</label>
+          <input v-model="email" type="email" id="email" required />
+          <span v-if="errors.email">{{ errors.email }}</span>
+        </div>
+        <div>
+          <label for="phone">Phone:</label>
+          <input v-model="phone" type="text" id="phone" required />
+          <span v-if="errors.phone">{{ errors.phone }}</span>
+        </div>
+        <button type="submit">Request Password Reset</button>
+        
+      </form>
+    </div>
 
     <div v-if="showResetForm">
       <h2>Reset Password</h2>
@@ -32,11 +32,12 @@
         <div>
           <label for="confirmPassword">Confirm Password:</label>
           <input v-model="confirmPassword" type="password" id="confirmPassword" required />
-          <span v-if="passwordError">{{ passwordError }}</span>
         </div>
         <button type="submit">Reset Password</button>
       </form>
     </div>
+    <div v-if="success" class="success">{{ success }}</div>
+    <div v-if="error" class="error">{{ error }}</div>
   </div>
 </template>
 
@@ -52,17 +53,10 @@ export default {
       confirmPassword: '',
       showResetForm: false,
       errors: {},
-      passwordError: null,
     };
   },
   computed: {
-    ...mapState(['error', 'success']),
-    errorMessage() {
-      return this.error;
-    },
-    successMessage() {
-      return this.success;
-    }
+    ...mapState(['error', 'success'])
   },
   methods: {
     ...mapActions(['requestPasswordReset', 'resetPassword']),
@@ -74,12 +68,6 @@ export default {
       }
     },
     async handleResetPassword() {
-      this.passwordError = null;
-      // console.log(this.newPassword,this.confirmPassword)
-      // if (this.newPassword != this.confirmPassword) {
-      //   this.passwordError = 'Passwords do not match';
-      //   return;
-      // }
       await this.resetPassword({ email: this.email, phone: this.phone, newPassword: this.newPassword ,confirmPassword:this.confirmPassword});
       if (!this.error) {
         this.$router.push('/login');
@@ -101,5 +89,23 @@ export default {
 }
 .error {
   color: red;
+}
+button{
+  background-color: #da5b01;
+  width: 420px;
+  margin-top: 10px;
+  transition: all .2s ease-in-out;
+}
+button:hover{
+  background-color: #c45200;
+  width: 420px;
+  margin-top: 10px;
+}
+@media (max-width: 768px) {
+  .forgot-password {
+    max-width: 250px;
+    margin: 0 auto;
+}
+
 }
 </style>

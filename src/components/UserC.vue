@@ -1,22 +1,26 @@
 <template>
     <div class="user-form">
       <h3>User Details</h3>
-      <form @submit.prevent="updateUser">
+      <form @submit.prevent="updateUserData">
         <div class="form-group">
           <label for="firstname">First Name:</label>
           <input type="text" v-model="user.firstname" id="firstname" />
+          <p v-if="validationErrors" class="error">{{ validationErrors.firstname }}</p>
         </div>
         <div class="form-group">
           <label for="lastname">Last Name:</label>
           <input type="text" v-model="user.lastname" id="lastname" />
+          <p v-if="validationErrors" class="error">{{ validationErrors.lastname }}</p>
         </div>
         <div class="form-group">
           <label for="email">Email:</label>
           <input type="email" v-model="user.email" id="email" />
+          <p v-if="validationErrors" class="error">{{ validationErrors.email }}</p>
         </div>
         <div class="form-group">
           <label for="phone">Phone:</label>
           <input type="text" v-model="user.phone" id="phone" />
+          <p v-if="validationErrors" class="error">{{ validationErrors.phone }}</p>
         </div>
         <div class="form-group">
           <label for="dob">Date of Birth:</label>
@@ -34,6 +38,7 @@
         <div class="form-group">
           <label for="address">Address:</label>
           <input type="text" v-model="user.address" id="address" />
+          <p v-if="validationErrors" class="error">{{ validationErrors.address }}</p>
         </div>
         <div class="form-group">
           <div class="profileImg">
@@ -42,7 +47,10 @@
           <label for="profile_picture">Profile Picture:</label>
           <input type="file" @change="onFileChange" id="profile_picture" />
         </div>
-        <div class="msg">{{ msg }}</div>
+        <div class="msg">
+          <p v-if="error">{{ error }}</p>
+          <p v-if="success">{{ success }}</p>
+        </div>
         <div class="butt">
           <button type="submit">Update</button>
           <button type="button" @click="cancelEdit">Cancel</button>
@@ -52,7 +60,7 @@
   </template>
   
   <script>
-import { mapState } from 'vuex';
+  import { mapState, mapActions } from 'vuex';
   import axios from 'axios';
   
   export default {
@@ -68,17 +76,17 @@ import { mapState } from 'vuex';
           address: '',
           profile_picture: null
         },
-        file: null,
-        msg:''
+        file: null
       };
     },
     created() {
       this.fetchUserDetails();
     },
     computed: {
-    ...mapState(['img'])
+    ...mapState(['error','img', 'success', 'validationErrors'])
   },
     methods: {
+      ...mapActions(['updateUser']),
       async fetchUserDetails() {
         try {
           const response = await axios.get('http://localhost:5000/users', {
@@ -89,39 +97,36 @@ import { mapState } from 'vuex';
           console.error('Error fetching user details:', error.response.data.error);
         }
       },
-      async updateUser() {
+      updateUserData() {
         const formData = new FormData();
         for (const key in this.user) {
           formData.append(key, this.user[key]);
         }
-        if (this.file) {
-          formData.append('profile_picture', this.file);
-        }
+        this.updateUser(formData);
   
-        try {
-          const response = await axios.put('http://localhost:5000/users', formData, {
-            headers: {
-              Authorization: localStorage.getItem('token'),
-              'Content-Type': 'multipart/form-data'
-            }
-          });
-          console.log(response.data.message);
-          this.msg="Information Updated Successfully"
-          setTimeout(() => {
-            this.msg=''
-            this.$emit('cancel-edit');
-            }, 2000);
-          this.$emit('updateSuccess');
-        } catch (error) {
-          this.msg="Error updating user details"
-          setTimeout(() => {
-            this.msg=''
-            }, 1500);
-          console.error('Error updating user details:', error.response.data.error);
-        }
+        // try {
+        //   const response = await axios.put('http://localhost:5000/users', formData, {
+        //     headers: {
+        //       Authorization: localStorage.getItem('token'),
+        //       'Content-Type': 'multipart/form-data'
+        //     }
+        //   });
+        //   this.msg=response.data.message
+        //   setTimeout(() => {
+        //     this.msg=''
+        //     this.$emit('cancel-edit');
+        //     }, 2000);
+        //   this.$emit('updateSuccess');
+        // } catch (error) {
+        //   this.msg="Error updating user details"
+        //   setTimeout(() => {
+        //     this.msg=''
+        //     }, 1500);
+        //   console.error('Error updating user details:', error.response.data.error);
+        // }
       },
       onFileChange(event) {
-        this.file = event.target.files[0];
+        this.user.profile_picture = event.target.files[0];
       },
       cancelEdit() {
         this.$emit('cancel-edit');
@@ -174,8 +179,9 @@ import { mapState } from 'vuex';
   .msg{
     text-align: center;
     height: 20px;
-    color:#da5b01;
+    /* color:#505050; */
     font-weight: 600;
+    height: 50px;
   }
   .butt{
     display: flex;
