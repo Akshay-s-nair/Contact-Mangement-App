@@ -1,5 +1,11 @@
 <template>
   <div :class="['sidebar', { expanded: isExpanded }]">
+    <button class="toggle-bt" @click="toggleSidebar" v-if="isMobileView">
+    {{ isExpanded ? '<' : '>' }}
+  </button>
+  <button class="toggle-bt" @click="toggleSidebar" v-if="isExpanded && !isMobileView">
+    {{ isExpanded ? '<' : '>' }}
+  </button>
     
     <img v-if="!isMobileView" class="ContactEaseinContacts" src="ContactEase2.png" alt="">
     <div class="profileImg">
@@ -8,15 +14,11 @@
     <h1 class="welcome" v-if="!isMobileView">Welcome, {{ user }}</h1>
     <p class="ProfileImgName" v-if="isMobileView && isExpanded">{{ user }}</p>
     <section class="" id="contacts">
-      <button class="toggle-bt" @click="toggleSidebar" v-if="isMobileView">
-      {{ isExpanded ? '<' : '>' }}
-    </button>
-    <button class="toggle-bt" @click="toggleSidebar" v-if="isExpanded && !isMobileView">
-      {{ isExpanded ? '<' : '>' }}
-    </button>
+    <div class="messages">
+      <div v-if="error && isExpanded" class="alert alert-danger">{{ error }}</div>
+      <div v-if="success && isExpanded" class="alert alert-success">{{ success }}</div>
+    </div>
       <div v-if="isMobileView && isExpanded" class="ContactNavsPar">
-        <div v-if="error" class="alert alert-danger">{{ error }}</div>
-        <div v-if="success" class="alert alert-success">{{ success }}</div>
           <button class="ContactNavs" @click="toggleAddForm">
             {{ showAddForm ? 'Hide Form' : 'Add Contact' }}
           </button>
@@ -33,8 +35,8 @@
       </div>
       <div v-if="!isMobileView" class="ContactNavsPar">
         
-        <div v-if="error" class="alert alert-danger">{{ error }}</div>
-        <div v-if="success" class="alert alert-success">{{ success }}</div>
+        <div v-if="error && isExpanded" class="alert alert-danger">{{ error }}</div>
+        <div v-if="success && isExpanded" class="alert alert-success">{{ success }}</div>
           <button class="ContactNavs" @click="toggleAddForm">
             {{ showAddForm ? 'Hide Form' : 'Add Contact' }}
           </button>
@@ -96,12 +98,12 @@ export default {
       try {
         if (this.isEdit) {
           await this.updateContact(contact);
+          this.resetForm();
         } else {
           await this.addContact(contact);
         }
-        this.resetForm();
       } catch (error) {
-        console.log(error);
+        //
       }
     },
     confirmLogout() {

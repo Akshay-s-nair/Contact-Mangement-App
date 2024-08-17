@@ -36,7 +36,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="main-content-container">
+    <div class="main-content-container" v-if="!isSidebarExpanded && !isMobileView">
       <component :is="currentView"
         @edit-contact="editContact"
         @toggle-add-form="toggleAddForm"
@@ -99,7 +99,8 @@ export default {
     },
     toggleSidebar(expanded) {
       this.isSidebarExpanded = expanded;
-    },handleSearch() {
+    },
+    handleSearch() {
       this.setSearch(this.search);
     },
     handleSort() {
@@ -133,7 +134,7 @@ export default {
 }
 
 .sidebarmain.expanded {
-  width: 5000px;
+  width: 330px;
 }
 
 .main-content-container {

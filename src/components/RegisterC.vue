@@ -139,7 +139,7 @@ export default {
     redirectAfterSuccess() {
       setTimeout(() => {
         this.$router.push('/login');
-      }, 1100); // 1 second delay
+      }, 1100); 
     }
   }
 };

@@ -7,7 +7,8 @@
         <button @click="cancelLogout">No</button>
       </div>
       <div v-if="redirecting" class="redirecting-message">
-        Redirecting to the home page in {{ counter }} seconds...
+        <h3>Redirecting</h3>
+        You will be back to home page in {{ counter }} seconds...
       </div>
     </div>
   </div>
