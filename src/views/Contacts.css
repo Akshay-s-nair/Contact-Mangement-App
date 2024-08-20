@@ -6,7 +6,7 @@
   position: relative;
   width: 90%;
   padding: 20px;
-  min-height: 650px;
+  min-height: 100%;
   background-color: #da5b01;
   transition: width 0.3s;
   border-radius: 10px;
@@ -14,6 +14,7 @@
 
 .sidebar.expanded {
   width: 90%;
+  min-height: 450px;
 }
 
 .toggle-btn {
@@ -143,15 +144,16 @@ button.ContactFormButton:hover {
   display:block;
 }
 .search-filter-nav{
+  width: 100%;
   display: none;
 }
 
 .form-control.me-2{
-  width: 450px;
+  width: 70%;
   margin-left: 2px;
 }
 .form-select.me-2{
-  width: 130px;
+  width: 20%;
   margin-left: 2px;
 }
 
@@ -253,6 +255,10 @@ p.ProfileImgName{
   background-color: #d4edda;
   color: #155724;
 }
+
+.Sticky{
+  position: none;
+}
 @media (max-width: 768px) {
   
 .profile-picture{
@@ -312,7 +318,7 @@ button.ContactNavs,.homeLink{
   padding-top: 20px;
 }
 .sidebar{
-  min-height: 450px;
+  min-height: 90%;
 }
 .ContactLogos{
   width: 17px;
@@ -344,11 +350,19 @@ h3{
   height: 50px;
 }
 .form-control.me-2{
-  width: 200px;
+  width: 70%;
   margin-left: 2px;
 }
 .form-select.me-2{
-  width: 74px;
+  width: 20%;
   margin-left: 2px;
+}
+.Sticky{
+  position: sticky;
+  top: -21px;
+  background-color: #da5b01;
+  z-index: 1;
+  width: 105%;
+  margin-left: -10px;
 }
 }

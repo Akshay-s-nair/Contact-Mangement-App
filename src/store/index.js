@@ -102,17 +102,16 @@ const store = createStore({
         localStorage.setItem('user', JSON.stringify(state.user));
       }
     },
-    // setProfilePicture(state, profile_picture) {
-    //   if (state.user) {
-    //     state.user.profile_picture = profile_picture;
-    //     localStorage.setItem('user', JSON.stringify(state.user));
-    //   }
-    // },
-    setCurrentPage(state, page) { // Added setCurrentPage mutation
+    setCurrentPage(state, page) { 
       state.currentPage = page;
     }
   },
   actions: {
+    autoLogout({ commit }) {
+      commit('clearUserData');
+      router.push({ name: 'Home' });
+      commit('setError', 'Session expired. Please log in again.');
+    },
     async register({ commit, dispatch }, formData) {
       try {
         commit('clearMessages');
@@ -366,24 +365,7 @@ const store = createStore({
       }
       dispatch('clearMessagesAfterDelay');
     }
-    // async changePassword({ commit, dispatch }, updatedData) {
-    //   try {
-    //     commit('clearMessages');
-    //     await axios.put('http://localhost:5000/changepassword', updatedData
-    //       , {
-    //         headers: { Authorization: localStorage.getItem('token') }
-    //         });
-    //         commit('setSuccess', 'Password changed successfully');
-    //         dispatch('clearMessagesAfterDelay');
-    //         } catch (error) {
-    //           if (error.response.data && error.response.data.error) {
-    //             commit('setError', error.response.data.error);
-    //             } else {
-    //               commit('setError', 'An error occurred during the change password');
-    //               }
-    //               dispatch('clearMessagesAfterDelay');
-    //               }
-    //               },
+
             
   },
   getters: {
@@ -392,5 +374,19 @@ const store = createStore({
     contacts: state => state.contacts,
   }
 });
+
+axios.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response && error.response.status === 401) {
+      // Trigger the auto-logout action if a 401 response is detected
+      store.dispatch('autoLogout');
+    }
+    return Promise.reject(error);
+  }
+);
+
 
 export default store;

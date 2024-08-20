@@ -12,12 +12,14 @@
       <img v-if="(isMobileView && isExpanded && img!=='null') || (!isMobileView && img!=='null')" class="profile-picture" :src="`/profile_pictures/${img}`" alt="Profile Picture" />
     </div>
     <h1 class="welcome" v-if="!isMobileView">Welcome, {{ user }}</h1>
-    <p class="ProfileImgName" v-if="isMobileView && isExpanded">{{ user }}</p>
-    <section class="" id="contacts">
-    <div class="messages">
-      <div v-if="error && isExpanded" class="alert alert-danger">{{ error }}</div>
-      <div v-if="success && isExpanded" class="alert alert-success">{{ success }}</div>
+    <div class="Sticky">
+      <p class="ProfileImgName" v-if="isMobileView && isExpanded">{{ user }}</p>
+      <div class="messages">
+        <div v-if="error && isExpanded" class="alert alert-danger">{{ error }}</div>
+        <div v-if="success && isExpanded" class="alert alert-success">{{ success }}</div>
+      </div>
     </div>
+    <section class="" id="contacts">
       <div v-if="isMobileView && isExpanded" class="ContactNavsPar">
           <button class="ContactNavs" @click="toggleAddForm">
             {{ showAddForm ? 'Hide Form' : 'Add Contact' }}

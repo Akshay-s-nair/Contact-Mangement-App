@@ -14,10 +14,10 @@
       <div class="counts">{{ total_count }} contacts found ! </div>
     </div>
     <div class="contacts-list">
-      <!-- <div class="message messageMain">
+      <div class="message messageMain">
         <div v-if="error" class="alert alert-danger">{{ error }}</div>
         <div v-if="success" class="alert alert-success">{{ success }}</div>
-      </div> -->
+      </div>
       <div class="counts counts-mobView">{{ total_count }} contacts found ! </div>
       <div v-if="contacts.length">
         <div class="contact-grid">
@@ -167,9 +167,6 @@ export default {
   margin: 0;
   font-size: 1.5em;
 }
-.message{
-  height: 30px;
-}
 .contact-info p {
   margin: 0;
   color: #666;
@@ -245,6 +242,11 @@ export default {
 }
 .message{
   display: block;
+  height: 30px;
+  position: sticky;
+  top: 0px;
+  /* background-color: #155724; */
+  /* z-index: 1; */
 }
 .messageMain{
   display:block;
