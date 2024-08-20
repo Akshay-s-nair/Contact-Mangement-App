@@ -36,7 +36,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="main-content-container" v-if="!isSidebarExpanded && !isMobileView">
+    <div class="main-content-container" v-if="(!isMobileView) || (!isSidebarExpanded && isMobileView)">
       <component :is="currentView"
         @edit-contact="editContact"
         @toggle-add-form="toggleAddForm"
@@ -75,6 +75,8 @@ export default {
   methods: {
     handleResize() {
       this.isMobileView = window.innerWidth <= 768;
+      // if(window.innerWidth >= 768){
+      // }
     },
     ...mapActions(['addContact', 'updateContact', 'setSearch', 'setSort', 'setSortOrder']),
     async handleSubmit(contact) {
@@ -119,7 +121,7 @@ export default {
 <style scoped>
 .contact-management {
   display: flex;
-  height: 750px;
+  height: 700px;
   animation: fadesIn 0.5s ease-in-out;
 }
 
@@ -160,7 +162,7 @@ export default {
   width: 130px;
 }
 .contact-management{
-  height: 550px;
+  height: 150%;
 }
 .main-content-container{
   height: 500px;

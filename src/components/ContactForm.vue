@@ -192,8 +192,12 @@ export default {
       // catch{
       //   this.errors.phone = 'Phone number is not valied';
       // }
-      if (this.localContact.phone && this.localContact.phone.length !== 10) {
-        this.errors.phone = 'Phone number must be of Ten digits';
+      if (this.localContact.phone) {
+          if (this.localContact.phone.length !== 10) {
+              this.errors.phone = 'Phone number must be of ten digits';
+          } else if (!/^\d{10}$/.test(this.localContact.phone)) {
+              this.errors.phone = 'Phone number must contain only digits';
+          }
       }
 
       return Object.keys(this.errors).length === 0;

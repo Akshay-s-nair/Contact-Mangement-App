@@ -48,3 +48,7 @@ button:hover{
   background-color: rgba(139, 69, 19, 0);
   color: #ff7878d4;
 } */
+
+body{
+  height: 100%;
+}

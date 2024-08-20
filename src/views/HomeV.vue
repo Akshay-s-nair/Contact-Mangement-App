@@ -81,9 +81,9 @@ export default {
       <p v-if="error" class="error">{{ error }}</p>
       <p v-if="success" class="success">{{ success }}</p>
       <h1 v-if="!isAuthenticated" class="welcometext">Welcome to ContactEase</h1>
-      <p v-if="!isAuthenticated" class="para">You are Experiencing ContactEase, a modern, user-friendly application designed to streamline and enhance your contact management experience. Whether you're an individual seeking to organize personal contacts or a professional managing a large network, ContactEase offers a comprehensive set of features to meet your needs.</p>
+      <p v-if="!isAuthenticated" class="para">We are providing a modern, user-friendly application designed to streamline and enhance your contact management experience. Whether you're an individual seeking to organize personal contacts or a professional managing a large network, ContactEase offers a comprehensive set of features to meet your needs.</p>
       <h1 v-if="isAuthenticated" class="welcometext welcometextAuth">{{ wish }}, {{ user }}</h1>
-      <p v-if="isAuthenticated" class="para">We are providing a modern, user-friendly application designed to streamline and enhance your contact management experience. Whether you're an individual seeking to organize personal contacts or a professional managing a large network, ContactEase offers a comprehensive set of features to meet your needs.</p>
+      <p v-if="isAuthenticated" class="para">You are Experiencing ContactEase, a modern, user-friendly application designed to streamline and enhance your contact management experience. Whether you're an individual seeking to organize personal contacts or a professional managing a large network, ContactEase offers a comprehensive set of features to meet your needs.</p>
       <div class="navs">
         <router-link class="links" to="/">Home</router-link>
         <router-link class="links" v-if="!isAuthenticated" to="/register">Register</router-link>
